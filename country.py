@@ -127,8 +127,11 @@ def find_country_of_city(city: City) -> Country:
     # TODO
 
     for key in Country.name_to_countries:
-        if city.name in Country.name_to_countries[key].cities:
-            return Country.name_to_countries[key]
+        country = Country.name_to_countries[key]
+
+        for el in country.cities:
+            if el.city_id == city.city_id:
+                return country
 
 
 def create_example_countries() -> None:
@@ -155,3 +158,5 @@ def test_example_countries() -> None:
 if __name__ == "__main__":
     create_example_countries()
     test_example_countries()
+
+    print("Sydney is in: " + find_country_of_city(City.name_to_cities["Sydney"][0]).name)
