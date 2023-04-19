@@ -103,6 +103,7 @@ def add_city_to_country(city: City, country_name: str, country_iso3: str) -> Non
     Adds a City to a country.
     If the country does not exist, create it.
 
+    :param city: city to add to country
     :param country_name: The name of the country
     :param country_iso3: The unique 3-letter identifier of this country
     :return: None

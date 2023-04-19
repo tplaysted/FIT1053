@@ -96,6 +96,7 @@ class City():
 
         return [self.name, str(self.coordinates), self.city_type, str(self.population), str(self.city_id)]
 
+
 def get_city_by_id(city_id: int) -> City | None:
     """
     Given a city ID, returns the city with that ID if one is known, None otherwise.
@@ -105,7 +106,10 @@ def get_city_by_id(city_id: int) -> City | None:
     """
     # TODO
 
-    return City.id_to_cities[city_id]
+    if city_id in City.id_to_cities:
+        return City.id_to_cities[city_id]
+    else:
+        return None
 
 
 def get_cities_by_name(city_name: str) -> list[City]:
@@ -118,6 +122,9 @@ def get_cities_by_name(city_name: str) -> list[City]:
     """
     # TODO
     list_cities = []
+
+    if city_name not in City.name_to_cities:
+        return list_cities
 
     for el in City.name_to_cities[city_name]:
         list_cities.append(el)
