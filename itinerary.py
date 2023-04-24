@@ -62,7 +62,7 @@ class Itinerary():
         # TODO
 
         itineraries = []
-        lengths = [] # [[0, 413km], [1, 1566km], [2, 390km]]
+        lengths = []  # [[0, 413km], [1, 1566km], [2, 390km]]
 
         for i in range(len(self.cities) + 1):
             itineraries.append(deepcopy(self))
