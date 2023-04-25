@@ -148,6 +148,9 @@ def create_example_countries() -> None:
     for city_name in ["Melbourne", "Canberra", "Sydney"]:
         add_city_to_country(City.name_to_cities[city_name][0], "Australia", "AUS")
 
+    for city_name in ["London", "Birmingham"]:
+        add_city_to_country(City.name_to_cities[city_name][0], "United Kingdom", "GBR")
+
 
 def test_example_countries() -> None:
     """

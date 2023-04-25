@@ -226,20 +226,32 @@ def create_example_vehicles() -> list[Vehicle]:
 if __name__ == "__main__":
     # we create some example cities
     # we create some example cities
+    # create_example_countries()
+    #
+    # from_cities = set()
+    # for city_id in [1036533631, 1036142029, 1458988644]:
+    #     from_cities.add(get_city_by_id(city_id))
+    #
+    # # we create some vehicles
+    # vehicles = create_example_vehicles()
+    #
+    # to_cities = set(from_cities)
+    # for from_city in from_cities:
+    #     to_cities -= {from_city}
+    #     for to_city in to_cities:
+    #         print(f"{from_city} to {to_city}:")
+    #         for vehicle in vehicles:
+    #             print(f"\t{vehicle.compute_travel_time(from_city, to_city)} hours with {vehicle}.")
+
     create_example_countries()
 
-    from_cities = set()
-    for city_id in [1036533631, 1036142029, 1458988644]:
-        from_cities.add(get_city_by_id(city_id))
+    city_list = []
+    city_list.append(get_city_by_id(1036533631))
+    city_list.append(get_city_by_id(1036142029))
+    city_list.append(get_city_by_id(4))
+    city_list.append(get_city_by_id(5))
 
-    # we create some vehicles
-    vehicles = create_example_vehicles()
-
-    to_cities = set(from_cities)
-    for from_city in from_cities:
-        to_cities -= {from_city}
-        for to_city in to_cities:
-            print(f"{from_city} to {to_city}:")
-            for vehicle in vehicles:
-                print(f"\t{vehicle.compute_travel_time(from_city, to_city)} hours with {vehicle}.")
+    itinerary = Itinerary(city_list)
+    dinghy = DiplomacyDonutDinghy(50, 200)
+    print(dinghy.compute_itinerary_time(itinerary))
 
