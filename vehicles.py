@@ -225,6 +225,7 @@ def create_example_vehicles() -> list[Vehicle]:
 
 if __name__ == "__main__":
     # we create some example cities
+    # we create some example cities
     create_example_countries()
 
     from_cities = set()
@@ -241,3 +242,4 @@ if __name__ == "__main__":
             print(f"{from_city} to {to_city}:")
             for vehicle in vehicles:
                 print(f"\t{vehicle.compute_travel_time(from_city, to_city)} hours with {vehicle}.")
+

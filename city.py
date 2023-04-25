@@ -146,6 +146,9 @@ def create_example_cities() -> None:
     # an example of a city without a specific city type
     City("Baoding", (38.8671, 115.4845), "", 11860000, 1156256829)
 
+    City("London", (51.5072, -0.1275), "primary", 9000000, 4)
+    City("Birmingham", (52.48, -1.9025), "admin", 1000000, 5)
+
 
 def test_example_cities() -> None:
     """
