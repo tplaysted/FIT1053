@@ -7,6 +7,7 @@ It contains the class Country.
 """
 from tabulate import tabulate
 from city import City, create_example_cities
+import csv
 
 
 class Country():
