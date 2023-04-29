@@ -23,7 +23,7 @@ class WorldGraphs:
     vehicle_to_graphs = dict()
 
 
-def build_world_graph(vehicle: Vehicle) -> None:
+def build_world_graph(vehicle: Vehicle) -> nx.Graph():
     """
     Takes all cities in existence at run-time and computes a time-weighted graph of the world
     based on a specific vehicle. Adds this (very large) graph to the WorldGraph dictionary,
@@ -43,7 +43,8 @@ def build_world_graph(vehicle: Vehicle) -> None:
         else:
             g.add_edge(edge[0], edge[1], weight=time)
 
-    WorldGraphs.vehicle_to_graphs[hash(vehicle)] = g  # call hash() to index the vehicle instantiation
+    WorldGraphs.vehicle_to_graphs[str(vehicle)] = g  # call hash() to index the vehicle
+    return g
 
 
 def find_shortest_path(vehicle: Vehicle, from_city: City, to_city: City) -> Itinerary | None:
@@ -61,12 +62,12 @@ def find_shortest_path(vehicle: Vehicle, from_city: City, to_city: City) -> Itin
         return Itinerary([from_city, to_city])
 
     # ---- Build world graph if it doesn't already exist ---- #
-    if not hash(vehicle) in WorldGraphs.vehicle_to_graphs:
-        build_world_graph(vehicle)
+    if not str(vehicle) in WorldGraphs.vehicle_to_graphs:
+        g = build_world_graph(vehicle)
+    else:
+        g = WorldGraphs.vehicle_to_graphs[str(vehicle)]
 
     # ---- Compute the shortest path ---- #
-    g = WorldGraphs.vehicle_to_graphs[hash(vehicle)]
-
     if not nx.has_path(g, from_city.city_id, to_city.city_id):
         return None
     else:

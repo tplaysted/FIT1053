@@ -35,6 +35,7 @@ def create_cities_countries_from_csv(path_to_csv: str) -> None:
             city_type = row[attribute_to_column['capital']]
 
             population = row[attribute_to_column['population']]
+
             if population == '':
                 population = 0
             else:
