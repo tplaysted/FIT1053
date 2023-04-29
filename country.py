@@ -44,7 +44,7 @@ class Country():
         # TODO
 
         self.cities.append(city)
-        self.cities.sort(key=lambda x: x.population, reverse=True)  # sort as we go
+        city.country = self.name
 
     def get_cities(self, city_type: list[str] = None) -> list[City]:
         """
@@ -59,6 +59,8 @@ class Country():
         :return: a list of cities in this country that have the specified city types.
         """
         # TODO
+
+        self.cities.sort(key=lambda x: x.population, reverse=True)
 
         if city_type is None:
             return self.cities
@@ -79,6 +81,8 @@ class Country():
         Order should start at 0 for the most populous city, and increase by 1 for each city.
         """
         # TODO
+
+        self.cities.sort(key=lambda x: x.population, reverse=True) # sort
 
         print("Cities of " + self.name)
 
@@ -128,12 +132,7 @@ def find_country_of_city(city: City) -> Country:
     """
     # TODO
 
-    for key in Country.name_to_countries:
-        country = Country.name_to_countries[key]
-
-        for el in country.cities:
-            if el.city_id == city.city_id:
-                return country
+    return Country.name_to_countries[city.country]
 
 
 def create_example_countries() -> None:
@@ -149,7 +148,7 @@ def create_example_countries() -> None:
     for city_name in ["Melbourne", "Canberra", "Sydney"]:
         add_city_to_country(City.name_to_cities[city_name][0], "Australia", "AUS")
 
-    for city_name in ["London", "Birmingham"]:
+    for city_name in ["Birmingham", "London"]:
         add_city_to_country(City.name_to_cities[city_name][0], "United Kingdom", "GBR")
 
 

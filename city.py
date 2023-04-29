@@ -47,6 +47,8 @@ class City():
 
         self.city_id = city_id
 
+        self.country = ""
+
         # TODO
 
         City.id_to_cities[self.city_id] = self

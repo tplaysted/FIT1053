@@ -142,12 +142,13 @@ class DiplomacyDonutDinghy(Vehicle):
 
         distance = departure.distance(arrival)
 
-        if find_country_of_city(departure).iso3 == find_country_of_city(arrival).iso3:
-            return math.ceil(distance / self.in_country_speed)
-        elif departure.city_type == 'primary' and arrival.city_type == 'primary':
+        if departure.city_type == 'primary' and arrival.city_type == 'primary':
             return math.ceil(distance / self.between_primary_speed)
-        else:
-            return math.inf
+
+        if departure.country == arrival.country:
+            return math.ceil(distance / self.in_country_speed)
+
+        return math.inf
 
     def __str__(self) -> str:
         """
@@ -255,3 +256,4 @@ if __name__ == "__main__":
     dinghy = DiplomacyDonutDinghy(50, 200)
     print(dinghy.compute_itinerary_time(itinerary))
 
+    print(type(dinghy).__name__)
