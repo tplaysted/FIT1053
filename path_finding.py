@@ -79,27 +79,17 @@ if __name__ == "__main__":
     create_cities_countries_from_csv("worldcities_truncated.csv")
     vehicles = create_example_vehicles()
 
-    test_vehicle = DiplomacyDonutDinghy(100, 300)
-    shortest_path = find_shortest_path(test_vehicle, City.name_to_cities["Mumbai"][0],
-                                       City.name_to_cities["New York"][0])
-    print(f"\t{test_vehicle.compute_itinerary_time(shortest_path)}"
-          f" hours with {test_vehicle} with path {shortest_path}.")
+    from_cities = set()
+    for city_id in [1036533631, 1036142029, 1458988644]:
+        from_cities.add(get_city_by_id(city_id))
 
-    plot_itinerary(shortest_path)
+    to_cities = set(from_cities)
 
-    # from_cities = set()
-    # for city_id in [1036533631, 1036142029, 1458988644]:
-    #     from_cities.add(get_city_by_id(city_id))
-    #
-    # to_cities = set(from_cities)
-    #
-    # for from_city in from_cities:
-    #     to_cities -= {from_city}
-    #     for to_city in to_cities:
-    #         print(f"{from_city} to {to_city}:")
-    #         for test_vehicle in vehicles:
-    #             shortest_path = find_shortest_path(test_vehicle, from_city, to_city)
-    #             print(f"\t{test_vehicle.compute_itinerary_time(shortest_path)}"
-    #                   f" hours with {test_vehicle} with path {shortest_path}.")
-    #
-    # print("stop!")
+    for from_city in from_cities:
+        to_cities -= {from_city}
+        for to_city in to_cities:
+            print(f"{from_city} to {to_city}:")
+            for test_vehicle in vehicles:
+                shortest_path = find_shortest_path(test_vehicle, from_city, to_city)
+                print(f"\t{test_vehicle.compute_itinerary_time(shortest_path)}"
+                      f" hours with {test_vehicle} with path {shortest_path}.")
