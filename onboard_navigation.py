@@ -7,8 +7,12 @@ It puts together all parts of the assignment.
 """
 import networkx as nx
 import csv
+import time
+
 from csv_parsing import create_cities_countries_from_csv
-import vehicles
+from vehicles import create_example_vehicles, Vehicle
+from city import City
+from map_plotting import plot_itinerary
 import path_finding
 
 
@@ -64,6 +68,59 @@ def import_graph_from_csv(filename: str) -> nx.Graph():
     return g
 
 
-if __name__ == '__main__':
-    create_cities_countries_from_csv('worldcities_truncated.csv')
+def get_user_vehicle_choice(v: list[Vehicle]) -> Vehicle:
+    choices = [str(i + 1) for i in range(len(v))]
 
+    for i in range(len(v)):
+        print(str(i + 1) + ": " + str(v[i]))
+
+    user_choice = v[int(validate_input("Input your choice: ", choices)) - 1]
+    print("Selected " + str(user_choice))
+    return user_choice
+
+
+def get_user_city_name(prompt: str) -> City:
+    while True:
+        name = input(prompt).title()
+
+        if name in City.name_to_cities:
+            c = City.name_to_cities[name][0]
+            print("Selected " + str(c))
+            return c
+        else:
+            print("Couldn't find '" + name + "' in the database. ")
+            prompt = "Please try again: "
+
+
+if __name__ == '__main__':
+    # ---- Set up by loading in vehicles, cities and graph data ---- #
+    print("Hold on a tic, loading the world data...")
+
+    create_cities_countries_from_csv('worldcities_truncated.csv')
+    v = create_example_vehicles()
+
+    v_names = ['ddd_100_500.csv', 'ttt_3_2000.csv']
+
+    for i in range(1, 3):
+        path_finding.WorldGraphs.vehicle_to_graphs[str(v[i])] = import_graph_from_csv(v_names[i - 1])
+
+    # ---- Get the user's vehicle choice ---- #
+    print("Ok, done! What vehicle would you like to use?")
+
+    user_v = get_user_vehicle_choice(v)
+
+    # ---- Get the user's choice of city ---- #
+    c1 = get_user_city_name("Please input a starting city: ")
+    c2 = get_user_city_name("Please input a destination city: ")
+
+    # ---- Do path finding ---- #
+    itinerary = path_finding.find_shortest_path(user_v, c1, c2)
+
+    if itinerary is None:
+        print("Unfortunately, there is no path from " + c1.name + " to " + c2.name +
+              " with the " + str(user_v))
+    else:
+        print(itinerary)
+        print("This journey will take " + str(user_v.compute_itinerary_time(itinerary)) +
+              "h using " + str(user_v))
+        plot_itinerary(itinerary)

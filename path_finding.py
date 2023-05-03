@@ -68,11 +68,14 @@ def find_shortest_path(vehicle: Vehicle, from_city: City, to_city: City) -> Itin
         g = WorldGraphs.vehicle_to_graphs[str(vehicle)]
 
     # ---- Compute the shortest path ---- #
-    if not nx.has_path(g, from_city.city_id, to_city.city_id):
+    try:
+        if not nx.has_path(g, from_city.city_id, to_city.city_id):
+            return None
+        else:
+            path = [get_city_by_id(x) for x in nx.shortest_path(g, from_city.city_id, to_city.city_id, weight='weight')]
+            return Itinerary(path)
+    except nx.exception.NodeNotFound:  # singleton nodes will not load in from csv. There is no path to or from them.
         return None
-    else:
-        path = [get_city_by_id(x) for x in nx.shortest_path(g, from_city.city_id, to_city.city_id, weight='weight')]
-        return Itinerary(path)
 
 
 if __name__ == "__main__":
