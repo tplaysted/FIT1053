@@ -27,7 +27,7 @@ def create_cities_countries_from_csv(path_to_csv: str) -> None:
         header = next(reader)
 
         for attribute in attribute_names:
-            attribute_to_column[attribute] = header.index(attribute)
+            attribute_to_column[attribute] = header.index(attribute)  # creating value-column association
 
         for i, row in enumerate(reader):
             name = row[attribute_to_column['city_ascii']]
@@ -36,7 +36,7 @@ def create_cities_countries_from_csv(path_to_csv: str) -> None:
 
             population = row[attribute_to_column['population']]
 
-            if population == '':
+            if population == '':  # handle empty population edge case
                 population = 0
             else:
                 population = int(population)
@@ -47,7 +47,7 @@ def create_cities_countries_from_csv(path_to_csv: str) -> None:
             country_iso3 = row[attribute_to_column['iso3']]
 
             new_city = City(name, coordinates, city_type, population, city_id)
-            add_city_to_country(new_city, country_name, country_iso3)
+            add_city_to_country(new_city, country_name, country_iso3)  # create city and init country
 
 
 if __name__ == "__main__":

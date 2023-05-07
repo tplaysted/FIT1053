@@ -7,7 +7,6 @@ It contains the class Country.
 """
 from tabulate import tabulate
 from city import City, create_example_cities
-import csv
 
 
 class Country():
@@ -82,7 +81,7 @@ class Country():
         """
         # TODO
 
-        self.cities.sort(key=lambda x: x.population, reverse=True) # sort
+        self.cities.sort(key=lambda x: x.population, reverse=True)  # sort
 
         print("Cities of " + self.name)
 

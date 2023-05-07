@@ -7,7 +7,6 @@ It puts together all parts of the assignment.
 """
 import networkx as nx
 import csv
-import time
 
 from csv_parsing import create_cities_countries_from_csv
 from vehicles import create_example_vehicles, Vehicle
@@ -69,6 +68,12 @@ def import_graph_from_csv(filename: str) -> nx.Graph():
 
 
 def get_user_vehicle_choice(v: list[Vehicle]) -> Vehicle:
+    """
+    Get a valid choice of vehicle from the user given a list of vehicles
+
+    :param v:
+    :return:
+    """
     choices = [str(i + 1) for i in range(len(v))]
 
     for i in range(len(v)):
@@ -80,6 +85,12 @@ def get_user_vehicle_choice(v: list[Vehicle]) -> Vehicle:
 
 
 def get_user_city_name(prompt: str) -> City:
+    """
+    Get the name of an existing city from the user. Convert all input strings to title case.
+
+    :param prompt:
+    :return:
+    """
     while True:
         name = input(prompt).title()
 

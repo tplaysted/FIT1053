@@ -43,7 +43,7 @@ def build_world_graph(vehicle: Vehicle) -> nx.Graph():
         else:
             g.add_edge(edge[0], edge[1], weight=time)
 
-    WorldGraphs.vehicle_to_graphs[str(vehicle)] = g  # call hash() to index the vehicle
+    WorldGraphs.vehicle_to_graphs[str(vehicle)] = g  # call str() to index the vehicle
     return g
 
 
